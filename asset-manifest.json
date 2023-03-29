@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/goods-app/static/css/main.ae4280cf.css",
+    "main.js": "/goods-app/static/js/main.8cc30fcc.js",
+    "index.html": "/goods-app/index.html",
+    "main.ae4280cf.css.map": "/goods-app/static/css/main.ae4280cf.css.map",
+    "main.8cc30fcc.js.map": "/goods-app/static/js/main.8cc30fcc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae4280cf.css",
+    "static/js/main.8cc30fcc.js"
+  ]
+}
