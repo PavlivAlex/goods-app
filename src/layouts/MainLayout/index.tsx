@@ -1,11 +1,13 @@
 import React, { ReactNode } from 'react';
-import { Content } from 'antd/es/layout/layout';
+
+// helpers
 import styled from 'styled-components';
-import { productsAPI } from '../../api/products';
-import { useFetch } from '../../hooks/useFetch';
+
+// components
 import Header from '../../components/Antd/Header';
 import Footer from '../../components/Antd/Footer';
 import Sidebar from '../../components/Antd/Sidebar';
+import { Content } from 'antd/es/layout/layout';
 import { Col, Row } from 'antd';
 
 interface MainLayoutProps {
@@ -16,6 +18,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <LayoutContainer>
       <Header />
+
       <LayoutContent>
         <Col span={4}>
           <Sidebar />

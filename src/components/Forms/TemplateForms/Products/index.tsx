@@ -1,19 +1,27 @@
 import React from 'react';
 
+// helpers
+import { FormikHelpers } from 'formik';
+import { AddProductValidationSchema } from '../../../../validation/products';
+
 // components
 import Form from '../../Form/index';
 import InnerForm from './InnerForm';
-import { AddProductValidationSchema } from '../../../../validation/products';
 
 export interface FormValuesModel {
   title: string;
   category: string;
   description: string;
+  brand: string;
+  year: string;
+  rating: number;
+  price: number | null;
+  stock: number | null;
 }
 
 interface IProps {
   initialFormValues: FormValuesModel;
-  onSubmit: (values: FormValuesModel) => void;
+  onSubmit: (values: FormValuesModel, helpers?: FormikHelpers<FormValuesModel>) => Promise<void>;
 }
 
 const AddProductForm = ({ initialFormValues, onSubmit }: IProps) => {
@@ -23,7 +31,7 @@ const AddProductForm = ({ initialFormValues, onSubmit }: IProps) => {
       renderForm={<InnerForm />}
       initialValues={initialFormValues}
       validationSchema={AddProductValidationSchema}
-      onSubmit={onSubmit}
+      onSubmit={(values: FormValuesModel, helpers: FormikHelpers<FormValuesModel>) => onSubmit(values, helpers)}
     />
   );
 };

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// components
 import { Rate as AntdRate } from 'antd';
 
 interface RateProps {

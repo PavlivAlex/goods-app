@@ -1,7 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+
+// helpers
 import { ICategory } from '../../../../interfaces/products';
 import { StateModel } from '../../../../redux/reducers';
+import { useSelector } from 'react-redux';
+
+// components
 import Select from '../../../Antd/Select';
 
 interface CategorySelectProps {

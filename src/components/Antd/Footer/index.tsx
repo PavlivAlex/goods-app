@@ -7,9 +7,6 @@ import styled from 'styled-components';
 import Text from '../Text';
 import { Footer as AntdFooter } from 'antd/es/layout/layout';
 
-// styles
-import './style.scss';
-
 const Footer = () => {
   return (
     <StyledFooter>
@@ -23,7 +20,11 @@ const StyledFooter = styled(AntdFooter)`
   position: fixed;
   bottom: 0;
   z-index: 5;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 60px;
 `;
 
 export default Footer;

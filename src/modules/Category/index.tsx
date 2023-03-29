@@ -1,15 +1,17 @@
-import { Row } from 'antd';
-import { Content } from 'antd/es/layout/layout';
 import React, { useEffect, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 // helpers
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Product from '../../components/Additionals/Product';
 import { IProduct } from '../../interfaces/products';
 import { products } from '../../redux/actions/products';
+import { useParams } from 'react-router-dom';
 import { StateModel } from '../../redux/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+
+// components
+import Product from '../../components/Additionals/Product';
+import { Row } from 'antd';
+import { Content } from 'antd/es/layout/layout';
 
 const Category = () => {
   const { name } = useParams();
@@ -38,7 +40,7 @@ const Category = () => {
 const CategoryContainer = styled(Content)`
   height: 100%;
   .ant-row {
-    margin-top: 20px;
+    margin: 20px 0;
   }
 `;
 

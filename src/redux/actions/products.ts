@@ -1,7 +1,6 @@
 import { productsAPI } from '../../api/products';
 import { FormValuesModel } from '../../components/Forms/TemplateForms/Products';
 import { ICategory, IProduct } from '../../interfaces/products';
-import { StateModel } from '../reducers';
 
 export enum ActionType {
   SET_PRODUCT = 'products/SET_PRODUCT',
@@ -27,6 +26,14 @@ export const products = {
     type: ActionType.SET_PRODUCTS_BY_CATEGORY,
     payload: products,
   }),
+
+  getCurrentProduct: (id: string) => async (dispatch: any, getState: any) => {
+    const { products: productsFromStore } = getState().products;
+
+    const findedPropuct = productsFromStore.find((product: IProduct) => product.id === Number(id));
+
+    dispatch(products.setProduct(findedPropuct));
+  },
 
   getAllProducts: (search?: string) => async (dispatch: any) => {
     const response = await productsAPI.getAllProducts(search);
@@ -54,6 +61,7 @@ export const products = {
     const { products: productsFromStore } = getState().products;
 
     const response = await productsAPI.createProduct(productToCreate);
+
     if (response) {
       dispatch(products.setProducts([...productsFromStore, response]));
       return response;
@@ -63,7 +71,6 @@ export const products = {
     const { products: productsFromStore } = getState().products;
 
     const response = await productsAPI.deleteProduct(productId);
-    console.log(response);
 
     if (response) {
       const updatedProducts = productsFromStore.filter((product: IProduct) => product.id !== response.id);

@@ -1,51 +1,66 @@
 import React, { useEffect, useState } from 'react';
 
 // helpers
-import { useFetch } from '../../../hooks/useFetch';
+import styled from 'styled-components';
+import { products } from '../../../redux/actions/products';
+import { ICategory } from '../../../interfaces/products';
 import { RoutesEnum } from '../../../router/routes';
-import { productsAPI } from '../../../api/products';
+import { StateModel } from '../../../redux/reducers';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components
-import Text from '../Text';
-import LoaderWrapper from '../../Additionals/LoaderWrapper';
-import { Menu } from 'antd';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-
-// styles
-import './styles.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { products } from '../../../redux/actions/products';
-import { StateModel } from '../../../redux/reducers';
-import { ICategory } from '../../../interfaces/products';
 import Button from '../Button';
+import { Menu } from 'antd';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const Sidebar = () => {
+  const { name } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+
   const dispatch: any = useDispatch();
-  const [current, setCurrent] = useState(location.pathname);
+
+  const [current, setCurrent] = useState('');
+
   const categories = useSelector<StateModel, ICategory[]>(state => state.products.categories);
 
-  const handleClick = (e: any) => {
-    setCurrent(e.key);
+  const handleClick = (label: string) => {
+    setCurrent(label);
+  };
+
+  const handleGoHome = () => {
+    setCurrent('');
+    navigate(RoutesEnum.Home);
   };
 
   useEffect(() => {
     dispatch(products.getCategories());
   }, []);
 
+  useEffect(() => {
+    if (name) {
+      setCurrent(name);
+    }
+  }, [name]);
+
   return (
     <>
-      <Menu mode='inline' selectedKeys={[current]} onClick={handleClick}>
+      <Menu mode='inline'>
         {categories?.map(item => (
-          <Menu.Item key={item.key}>
+          <StyledItem current={current} label={item.label} key={item.key} onClick={() => handleClick(item.label)}>
             <Link to={`${RoutesEnum.Category}/${item.label}`}>{item.label}</Link>
-          </Menu.Item>
+          </StyledItem>
         ))}
-        {location.pathname !== RoutesEnum.Home && <Button onClick={() => navigate(RoutesEnum.Home)}>Go back home</Button>}
+        {location.pathname !== RoutesEnum.Home && <Button onClick={handleGoHome}>Go back home</Button>}
       </Menu>
     </>
   );
 };
+
+const StyledItem = styled(Menu.Item)<{ current: string; label: string }>`
+  height: 30px !important;
+  background: ${({ current, label }) => (current === label ? '#c1c1c1' : 'white')} !important;
+  color: ${({ current, label }) => (current === label ? 'blue' : 'black')} !important;
+`;
 
 export default Sidebar;

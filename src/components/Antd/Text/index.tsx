@@ -1,8 +1,10 @@
 import React, { ReactNode, MouseEvent } from 'react';
 
+// helpers
+import styled from 'styled-components';
+
 // components
 import { Typography } from 'antd';
-import styled from 'styled-components';
 
 interface TextProps {
   size?: number;

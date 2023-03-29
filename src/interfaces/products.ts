@@ -6,6 +6,7 @@ export interface IProduct {
   discountPercentage: number;
   rating: number;
   stock: number;
+  year: string;
   brand: string;
   category: string;
   thumbnail: string;

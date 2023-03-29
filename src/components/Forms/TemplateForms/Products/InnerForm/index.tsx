@@ -1,14 +1,14 @@
 import React from 'react';
 
 // components
+import Rate from '../../../../Antd/Rate';
+import Text from '../../../../Antd/Text';
 import Input from '../../../../Antd/Input';
 import Textarea from '../../../../Antd/Textarea';
 import FormField from '../../../FormField';
 import DatePicker from '../../../../Antd/DatePicker';
 import CategorySelect from '../../../FormComponents/CategorySelect';
 import { Col, Row } from 'antd';
-import Rate from '../../../../Antd/Rate';
-import Text from '../../../../Antd/Text';
 
 const InnerForm = () => {
   return (
@@ -34,12 +34,7 @@ const InnerForm = () => {
         <FormField name='price' placeholder='Add price' component={Input} additionalProps={{ addonBefore: '$', type: 'numbers' }} />
       </Col>
       <Col span={12}>
-        <FormField
-          name='discountPercentage'
-          placeholder='Add discount'
-          component={Input}
-          additionalProps={{ addonBefore: '%', type: 'numbers' }}
-        />
+        <FormField name='stock' placeholder='Count in stock' component={Input} additionalProps={{ type: 'number' }} />
       </Col>
       <Text>Choose rating:</Text>
       <FormField name='rating' component={Rate} />

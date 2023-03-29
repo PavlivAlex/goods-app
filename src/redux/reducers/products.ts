@@ -3,23 +3,19 @@ import { IReduxAction } from '../../interfaces/redux';
 import { ICategory, IProduct } from '../../interfaces/products';
 
 export interface StateModel {
-  sort: any;
-  filters: any[];
   product: IProduct | null;
   products: IProduct[] | [];
   categories: ICategory[] | [];
   productsByCategory: IProduct[] | [];
+  isUpdated: any;
 }
 
 const initialState: StateModel = {
   product: null,
   products: [],
-  //! fix
   categories: [],
-  //! fix
   productsByCategory: [],
-  filters: [],
-  sort: null,
+  isUpdated: {},
 };
 
 const products = (state: StateModel = initialState, action: IReduxAction) => {
@@ -30,7 +26,7 @@ const products = (state: StateModel = initialState, action: IReduxAction) => {
       return { ...state, product: payload };
     }
     case ActionType.SET_PRODUCTS: {
-      return { ...state, products: payload };
+      return { ...state, products: payload, isUpdated: {} };
     }
     case ActionType.SET_CATEGORIES: {
       return { ...state, categories: payload };

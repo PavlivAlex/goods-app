@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
 
 // helpers
 import styled from 'styled-components';

@@ -1,19 +1,20 @@
-import { CloseOutlined } from '@ant-design/icons';
-import { Col } from 'antd';
-import { Content } from 'antd/es/layout/layout';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { getCurrentPrice } from '../../../helpers/getCurrentPrice';
-// import NoImage from '../../../assets/images/noImage.png';
 
 // helpers
+import styled from 'styled-components';
 import { IProduct } from '../../../interfaces/products';
 import { products } from '../../../redux/actions/products';
+import { RoutesEnum } from '../../../router/routes';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getCurrentPrice } from '../../../helpers/getCurrentPrice';
 
 // components
 import Rate from '../../Antd/Rate';
 import Text from '../../Antd/Text';
+import NoImage from '../../../assets/images/noImage.png';
+import { Col } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 
 interface ProductProps {
   product: IProduct;
@@ -21,6 +22,7 @@ interface ProductProps {
 
 const Product = ({ product }: ProductProps) => {
   const dispatch: any = useDispatch();
+  const navigate = useNavigate();
 
   const [isHover, setIsHover] = useState(false);
 
@@ -29,13 +31,19 @@ const Product = ({ product }: ProductProps) => {
   };
 
   return (
-    <StyledProduct onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)} span={6}>
+    <StyledProduct
+      span={6}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      onClick={() => navigate(`${RoutesEnum.Product}/${product.id}`)}
+    >
       {product.discountPercentage && <Discount>-{product.discountPercentage}%</Discount>}
       {product.rating >= 4.5 && <TopSale>TOP SALE</TopSale>}
+
       {isHover && <RemoveIcon onClick={handleRemoveProduct} />}
 
       <ProductImage>
-        <img src={product.thumbnail} alt='icon' />
+        <img src={product.thumbnail || NoImage} alt='icon' />
       </ProductImage>
 
       <Text size={16} weight={600}>
@@ -43,10 +51,12 @@ const Product = ({ product }: ProductProps) => {
       </Text>
       <Rate disabled value={product.rating} />
 
-      <OldPrice>{product.price}$</OldPrice>
+      {product.discountPercentage && <OldPrice>{product.price}$</OldPrice>}
+
       <Text size={20} color={product.discountPercentage ? 'red' : 'black'}>
         {getCurrentPrice(product.price, product.discountPercentage)}$
       </Text>
+
       <Text>In stock: {product.stock}</Text>
     </StyledProduct>
   );
@@ -109,11 +119,6 @@ const TopSale = styled.div`
   color: white;
   padding: 6px;
   border-radius: 30px;
-`;
-
-const CurrentPrice = styled.span`
-  color: red;
-  font-size: 20px;
 `;
 
 export default Product;

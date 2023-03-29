@@ -13,7 +13,7 @@ interface IOption {
 
 interface SelectProps {
   mode?: ModeType;
-  value?: string;
+  value?: string | null;
   options: IOption[];
   disabled?: boolean;
   allowClear?: boolean;

@@ -18,6 +18,7 @@ const Home = () => {
   const dispatch: any = useDispatch();
 
   const products = useSelector<StateModel, IProduct[]>(state => state.products.products);
+  const isUpdated = useSelector<StateModel, any>(state => state.products.isUpdated);
 
   const renderProducts = useMemo(() => {
     if (products && products.length) {
@@ -29,13 +30,11 @@ const Home = () => {
         </Text>
       );
     }
-  }, [products]);
+  }, [products, isUpdated]);
 
   useEffect(() => {
     dispatch(productsActions.getAllProducts());
   }, []);
-
-  console.log(products);
 
   return (
     <HomeContainer>
@@ -49,7 +48,7 @@ const HomeContainer = styled(Content)`
   height: 100%;
   padding: 0 8px;
   .ant-row {
-    margin-top: 20px;
+    margin: 20px 0;
   }
 `;
 

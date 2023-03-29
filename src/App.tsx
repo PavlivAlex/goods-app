@@ -3,8 +3,8 @@ import React from 'react';
 // components
 import Router from './router';
 
-function App() {
+const App = () => {
   return <Router />;
-}
+};
 
 export default App;
